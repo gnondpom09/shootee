@@ -1,0 +1,57 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            Shootee
+            <ion-buttons end>
+                <button
+                *ngIf="!displayForm"
+                ion-button
+                color="primary"
+                (click)="logOut()">
+                Log Out
+            </button>
+        </ion-buttons>
+    </ion-title>
+</ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <form
+    *ngIf="displayForm"
+    [formGroup]="form"
+    (ngSubmit)="logIn()">
+    <ion-list>
+        <ion-item margin-bottom>
+            <ion-input
+            type="text"
+            formControlName="email" placeholder="Your Email"></ion-input>
+        </ion-item>
+
+
+        <ion-item margin-bottom>
+            <ion-input
+            type="password"
+            formControlName="password" placeholder="Password"></ion-input>
+        </ion-item>
+
+
+        <button
+        ion-button
+        color="primary"
+        text-center
+        block [disabled]="!form.valid">Log In</button>
+    </ion-list>
+
+    <p>{{ displayError }}</p>
+</form>
+
+<div *ngIf="!displayForm">
+    <h1 *ngIf="_AUTH.user | async">Welcome {{ (_AUTH.user | async)?.email }}!</h1>
+    <p>Logged in bro!</p>
+    <button ion-button (click)="logOut()">
+        Logout
+    </button>
+</div>
+
+</ion-content>
